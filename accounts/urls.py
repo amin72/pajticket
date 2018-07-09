@@ -6,8 +6,8 @@ from . import views
 app_name = 'accounts'
 
 urlpatterns = [
-	url(r'^$', views.LoginView.as_view(), name='login'),
-	url(r'^$', views.SignUpView.as_view(), name='signup'),
-	url(r'^$', views.LogoutView.as_view(), name='signup'),
-	url(r'^$', views.DashboardView.as_view(), name='dashboard'),
+	url(r'^login/$', views.LoginView.as_view(), name='login'),
+	url(r'^signup/$', views.SignUpView.as_view(), name='signup'),
+	url(r'^logout/$', views.LogoutView.as_view(), name='logout'),
+	url(r'^dashboard/$', views.DashboardView.as_view(), name='dashboard'),
 ]
