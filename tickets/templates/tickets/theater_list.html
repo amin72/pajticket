@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ block.super }} | تئاترها{% endblock %}
+
+{% block content %}
+
+<div class="clear"></div>
+
+<div class="row">
+    {% for theater in object_list %}
+        <div class="col-md-3 col-sm-6">
+            <div class="space">
+                <a href="{% url 'tickets:theater_detail' pk=theater.pk %}">
+                    <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ theater.title }}">
+                </a>
+            </div>
+            <div class="text-center space">{{ theater.title }}</div>
+            <div class="text-center space">کارگردان: {{ theater.director }}</div>
+            <div class="text-center space">
+                <a class="btn btn-primary" href="{% url 'tickets:theater_detail' pk=theater.pk %}">مشاهده</a>
+            </div>
+        </div>   
+    {% endfor %}
+</div>
+
+
+{% endblock %}

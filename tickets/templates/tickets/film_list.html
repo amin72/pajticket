@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ block.super }} | فیلم ها{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    {% for film in object_list %}
+        <div class="col-md-3 col-sm-6">
+            <div class="space">
+                <a href="{% url 'tickets:film_detail' pk=film.pk %}">
+                    <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ film.title }}">
+                </a>
+            </div>
+            <div class="text-center space">{{ film.title }}</div>
+            <div class="text-center space">کارگردان: {{ film.director }}</div>
+            <div class="text-center space">
+                <a class="btn btn-primary" href="{% url 'tickets:film_detail' pk=film.pk %}">مشاهده</a>
+            </div>
+        </div>   
+    {% endfor %}
+</div>
+
+{% endblock %}

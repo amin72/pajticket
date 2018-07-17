@@ -2,10 +2,10 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
-
+from django.contrib.auth import authenticate, login, logout
 from braces import views
  
-from .forms import LoginForm #, RegistrationForm
+from .forms import LoginForm, RegistrationForm
 
 
 
@@ -24,7 +24,7 @@ class LoginView(views.AnonymousRequiredMixin,
 
 		user = authenticate(username=username, password=password)
 
-		if user is not None and user.is_active():
+		if user is not None and user.is_active:
 			login(self.request, user)
 			return super().form_valid(form)
 		else:
@@ -32,13 +32,23 @@ class LoginView(views.AnonymousRequiredMixin,
 
 
 
-class SignUpView(generic.TemplateView):
+class SignUpView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
+	generic.CreateView):
+	form_class = RegistrationForm
 	template_name = 'accounts/signup.html'
+	model = User
+	success_url = reverse_lazy('accounts:login')
+	form_valid_message = ''
 
 
 
-class LogoutView(generic.TemplateView):
-	pass
+
+class LogoutView(views.LoginRequiredMixin, generic.RedirectView):
+	url = reverse_lazy('tickets:home')
+
+	def get(self, request, *args, **kwargs):
+		logout(request)
+		return super().get(request, *args, **kwargs)
 
 
 

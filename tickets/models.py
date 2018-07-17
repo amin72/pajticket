@@ -1,13 +1,18 @@
 from django.db import models
 
 
+
 class Ticket(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
 	place = models.CharField(max_length=255, verbose_name='مکان')
 	date = models.DateTimeField(verbose_name='زمان')
+	price = models.PositiveIntegerField(verbose_name='مبلغ')
 
 	def __str__(self):
 		return '{}, at {}, on {}'.format(self.title, self.place, self.date)
+
+	class Meta:
+		abstract = True
 
 
 
@@ -19,12 +24,16 @@ class People(models.Model):
 	
 	first_name = models.CharField(max_length=255, verbose_name='نام')
 	last_name = models.CharField(max_length=255, verbose_name='نام خانوادگی')
-	birth_day = models.DateTimeField(verbose_name='تاریخ تولد', blank=True)
+	birth_day = models.DateTimeField(verbose_name='تاریخ تولد', blank=True,
+		default='')
 	gender = models.CharField(max_length=255, verbose_name='جنسیت',
 		choices=GENDERS)
 
 	def __str__(self):
 		return self.first_name + ' ' + self.last_name
+
+	class Meta:
+		verbose_name_plural = 'People'
 
 
 
@@ -32,17 +41,25 @@ class Actor(models.Model):
 	person = models.ForeignKey(People, on_delete=models.CASCADE,
 		verbose_name='کاربر')
 
+	def __str__(self):
+		return str(self.person)
 
 
 class Director(models.Model):
 	person = models.ForeignKey(People, on_delete=models.CASCADE,
 		verbose_name='کاربر')
 
+	def __str__(self):
+		return str(self.person)
+
 
 
 class Writer(models.Model):
 	person = models.ForeignKey(People, on_delete=models.CASCADE,
 		verbose_name='کاربر')
+
+	def __str__(self):
+		return str(self.person)
 
 
 
@@ -68,6 +85,9 @@ class Country(models.Model):
 	def __str__(self):
 		return self.name
 
+	class Meta:
+		verbose_name_plural = 'Countries'
+
 
 
 class Film(models.Model):
@@ -86,6 +106,7 @@ class Film(models.Model):
 	description = models.TextField(verbose_name='خلاصه داستان')
 	genre = models.ForeignKey(Genre, verbose_name='ژانر')
 	writer = models.ForeignKey(Writer, verbose_name='نویسنده')
+	cover = models.ImageField(upload_to='images/films/', verbose_name='کاور', default='')
 
 	def __str__(self):
 		return self.title
@@ -96,8 +117,8 @@ class FilmTicket(Ticket):
 	film = models.ForeignKey(Film, on_delete=models.CASCADE,
 		verbose_name='فیلم')
 
-	def __str__(self):
-		return self.concert + ', ' + self.ticket
+	class Meta:
+		verbose_name_plural = 'Film Tickets'
 
 
 
@@ -110,6 +131,8 @@ class Theater(models.Model):
 	description = models.TextField(verbose_name='خلاصه داستان')
 	genre = models.ForeignKey(Genre, verbose_name='ژانر')
 	writer = models.ForeignKey(Writer, verbose_name='نویسنده')
+	cover = models.ImageField(upload_to='images/theaters/',
+		verbose_name='کاور', default='')
 
 	def __str__(self):
 		return self.title
@@ -120,8 +143,8 @@ class TheaterTicket(Ticket):
 	theater = models.ForeignKey(Theater, on_delete=models.CASCADE,
 		verbose_name='تئاتر')
 
-	def __str__(self):
-		return self.concert + ', ' + self.ticket
+	class Meta:
+		verbose_name_plural = 'Theater Tickets'
 
 
 
@@ -129,17 +152,20 @@ class Song(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
 	singer = models.ForeignKey(People, verbose_name='خواننده')
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
+	cover = models.ImageField(upload_to='images/songs/', verbose_name='کاور', default='')
 
 	def __str__(self):
-		return self.title + ", " + self.singer
+		return self.title + ", " + str(self.singer)
 
 
 
 class Concert(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
-	song = models.ForeignKey(Song, on_delete=models.CASCADE, verbose_name='خواننده')
+	artist = models.ForeignKey(People, on_delete=models.CASCADE,
+		verbose_name='خواننده')
+	songs = models.ManyToManyField(Song, verbose_name='ترانه ها')
 	date = models.DateTimeField(auto_now_add=True, verbose_name='زمان کنسرت')
-	description = models.TextField(verbose_name='خلاصه داستان')
+	description = models.TextField(verbose_name='توضیحات')
 
 	def __str__(self):
 		return self.title
@@ -150,5 +176,5 @@ class ConcertTicket(Ticket):
 	concert = models.ForeignKey(Concert, on_delete=models.CASCADE,
 		verbose_name='کنسرت')
 
-	def __str__(self):
-		return self.concert + ', ' + self.ticket
+	class Meta:
+		verbose_name_plural = 'Concert Tickets'

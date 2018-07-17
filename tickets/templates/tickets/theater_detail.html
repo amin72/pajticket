@@ -1,0 +1,11 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{ block.super }} | {{ object.title }}{% endblock %}
+
+{% block content %}
+
+<div class="clear"></div>
+
+{{ object.title }}
+
+{% endblock %}

@@ -3,7 +3,9 @@ from django.contrib import admin
 from . import models
 
 
-admin.site.register(models.Ticket)
+admin.site.register(models.FilmTicket)
+admin.site.register(models.TheaterTicket)
+admin.site.register(models.ConcertTicket)
 admin.site.register(models.People)
 admin.site.register(models.Actor)
 admin.site.register(models.Director)

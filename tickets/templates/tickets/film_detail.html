@@ -1,0 +1,21 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}{{ block.super }} | {{ object.title }}{% endblock %}
+
+{% block content %}
+
+
+{{ object.cover }}
+{{ object.title }}
+<br>
+{{ object.description }}
+<br>
+{{ object.director }}
+<br>
+{{ object.actors }}
+
+<div>
+	<a class="btn btn-primary" href="#">تهیه بلیط</a>
+</div>
+
+{% endblock %}
