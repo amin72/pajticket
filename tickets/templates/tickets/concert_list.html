@@ -8,20 +8,22 @@
 <div class="clear"></div>
 
 <div class="row">
-    {% for concert in object_list %}
-        <div class="col-md-3 col-sm-6">
-            <div class="space">
-                <a href="{% url 'tickets:concert_detail' pk=concert.pk %}">
-                    <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ concert.title }}">
-                </a>
-            </div>
-            <div class="text-center space">{{ concert.title }}</div>
-            <div class="text-center space">کارگردان: {{ concert.director }}</div>
-            <div class="text-center space">
-                <a class="btn btn-primary" href="{% url 'tickets:concert_detail' pk=concert.pk %}">مشاهده</a>
-            </div>
-        </div>   
-    {% endfor %}
+    <div class="col-md-10 col-md-offset-1">
+        {% for concert in object_list %}
+            <div class="col-md-3 col-sm-6">
+                <div class="space">
+                    <a href="{% url 'tickets:concert_detail' pk=concert.pk %}">
+                        <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ concert.title }}">
+                    </a>
+                </div>
+                <div class="text-center space">{{ concert.title }}</div>
+                <div class="text-center space">کارگردان: {{ concert.director }}</div>
+                <div class="text-center space">
+                    <a class="btn btn-primary" href="{% url 'tickets:concert_detail' pk=concert.pk %}">مشاهده</a>
+                </div>
+            </div>   
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

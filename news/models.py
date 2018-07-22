@@ -4,7 +4,7 @@ from django.db import models
 
 class News(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
-	description = models.TextField(verbose_name='متن')
+	text = models.TextField(verbose_name='متن')
 	date = models.DateTimeField(auto_now_add=True, verbose_name='زمان')
 
 	def __str__(self):

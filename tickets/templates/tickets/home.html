@@ -17,7 +17,9 @@
         <!-- Films -->
         <div class="row">
             <div class="col-md-12">
-                <h2>فیلم های سینمایی</h2>
+                <h2 class="text-muted header">فیلم های سینمایی</h2>
+                <a class="btn more pull-left" href="{% url 'tickets:films' %}">مشاهده فیلم های بیشتر ...</a>
+
             </div>
         </div>
 
@@ -29,26 +31,23 @@
                             <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ film.title }}">
                         </a>
                     </div>
-                    <div class="text-center space">{{ film.title }}</div>
-                    <div class="text-center space">کارگردان: {{ film.director }}</div>
+                    <div class="text-center space">
+                        <strong>{{ film.title }}</strong>
+                    </div>
+                    <div class="text-center space">{{ film.director }}</div>
                     <div class="text-center space">
                         <a class="btn btn-primary" href="{% url 'tickets:film_detail' pk=film.pk %}">مشاهده</a>
                     </div>
                 </div>   
             {% endfor %}
-            <div>
-                <div class="col-md-12">
-                    <br>
-                    <a class="btn btn-danger" href="{% url 'tickets:films' %}">مشاهده فیلم های بیشتر ...</a>
-                </div>
-            </div>
         </div>
         <hr>
 
         <!-- Theaters -->
         <div class="row">
             <div class="col-md-12">
-                <h2>تئاتر ها</h2>
+                <h2 class="text-muted header">تئاتر ها</h2>
+                <a class="btn more pull-left" href="{% url 'tickets:theaters' %}">مشاهده تئاتر های بیشتر ...</a>
             </div>
         </div>
 
@@ -60,26 +59,23 @@
                             <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ theater.title }}">
                         </a>
                     </div>
-                    <div class="text-center space">{{ theater.title }}</div>
-                    <div class="text-center space">کارگردان: {{ theater.director }}</div>
+                    <div class="text-center space">
+                        <strong>{{ theater.title }}</strong>
+                    </div>
+                    <div class="text-center space">{{ theater.director }}</div>
                     <div class="text-center space">
                         <a class="btn btn-primary" href="{% url 'tickets:theater_detail' pk=theater.pk %}">مشاهده</a>
                     </div>
                 </div>   
             {% endfor %}
-            <div>
-                <div class="col-md-12">
-                    <br>
-                    <a class="btn btn-danger" href="{% url 'tickets:theaters' %}">مشاهده تئاتر های بیشتر ...</a>
-                </div>
-            </div>
         </div>
         <hr>
 
         <!-- Concerts -->
         <div class="row">
             <div class="col-md-12">
-                <h2>کنسرت ها</h2>
+                <h2 class="text-muted header">کنسرت ها</h2>
+                <a class="btn more pull-left" href="{% url 'tickets:concerts' %}">مشاهده کنسرت های بیشتر ...</a>
             </div>
         </div>
 
@@ -91,21 +87,15 @@
                             <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ concert.title }}">
                         </a>
                     </div>
-                    <div class="text-center space">{{ concert.title }}</div>
-                    <div class="text-center space">کارگردان: {{ concert.director }}</div>
+                    <div class="text-center space">
+                        <strong>{{ concert.title }}</strong>
+                    </div>
                     <div class="text-center space">
                         <a class="btn btn-primary" href="{% url 'tickets:concert_detail' pk=concert.pk %}">مشاهده</a>
                     </div>
                 </div>   
             {% endfor %}
-            <div>
-                <div class="col-md-12">
-                    <br>
-                    <a class="btn btn-danger" href="{% url 'tickets:concerts' %}">مشاهده کنسرت های بیشتر ...</a>
-                </div>
-            </div>
         </div>
-
     </div>
 
 <!-- Left Section for news and logo -->
@@ -113,12 +103,12 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="text-center">
-                    <h3>آخرین اخبار</h3>
+                    <h3 class="text-muted"><strong>آخرین اخبار</strong></h3>
                 </div>
                 {% for n in news %}
                     <div class="space">
                         <img src="{% static 'img/news-icon.jpg' %}">
-                        {{ n.title }}
+                        <a href="{% url 'news:detail' pk=n.pk %}">{{ n.title }}</a>
                     </div>
                 {% endfor %}
             </div>

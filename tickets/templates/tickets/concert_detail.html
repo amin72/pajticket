@@ -1,11 +1,44 @@
 {% extends 'layouts/base.html' %}
+{% load static %}
 
-{% block title %}{{ block.super }} | کنسرت ها{% endblock %}
+{% block title %}{{ block.super }} | {{ object.title }}{% endblock %}
 
 {% block content %}
 
-<div class="clear"></div>
-
-{{ object.title }}
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<img class="img-responsive img-thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ object.title }}">
+		<h2>
+			<span class="label label-danger">{{ object.title }}</span>
+			<span class="label label-default">{{ object.artist }}</span>
+			<span class="pull-left">
+				<a class="btn btn-success" href="{% url 'tickets:buy_concert_ticket' pk=object.pk %}">خرید بلیط</a>
+			</span>
+		</h2>
+		<hr>
+		
+		<ul class="list-group">
+			<li class="list-group-item">
+				<strong>مدت:‌ {{ object.length }} دقیقه</strong>
+			</li>
+			<li class="list-group-item">
+				<strong>تاریخ اجرا:‌ {{ object.running_time.date }}</strong>
+			</li>
+			<li class="list-group-item">
+				<strong>مکان:‌ {{ object.place.name }}</strong>
+			</li>
+			{% if object.songs.count > 0 %}
+				<li class="list-group-item">
+					<h4><strong>ترا نه ها</strong></h4>
+					{{ object.songs.all|join:' - ' }}
+				</li>
+			{% endif %}
+			<li class="list-group-item">
+				<h4><strong>توضیحات</strong></h4>
+				<div class="well">{{ object.description }}</div>
+			</li>
+		</ul>
+	</div>
+</div>
 
 {% endblock %}

@@ -12,3 +12,157 @@
 	padding: 10px;
 	margin: 16px;
 }
+
+.list-no-style {
+  padding: 0px;
+  list-style: none;
+}
+
+.btn-space {
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+.big-label {
+	font-size: 14px;
+}
+
+.user-info {
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.big {
+	font-size: 22px;
+}
+
+.top-space {
+	margin-top: 40px;
+}
+
+.news-text {
+	font-size: 20px;
+}
+
+.news-date {
+	font-size: 14px;
+}
+
+.news-top-space {
+	margin-top: 42px;
+}
+
+.more {
+	background: #ff3543;
+	color: #fefefe;
+	box-shadow: 0 1px 2px rgba(0,0,0,.15);
+}
+
+.header {
+	display: inline;
+}
+
+
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+.wrapper {
+    min-height: 100%;
+    height: 100%;
+    margin: 0 auto -155px; /* the bottom margin is the negative value of the footer's height */
+}
+
+.footer, .push {
+    height: 155px;
+}
+
+.footer {
+  width: 100%;
+  background-color: #01a89e;
+}
+
+.container {
+    width: auto;
+    max-width: 680px;
+    padding: 0 15px;
+}
+
+.container .text-muted {
+    margin: 20px 0;
+}
+
+/*.mastfooter {
+  width: 90%;
+  height: 100%;
+  padding-top: 50px;
+  margin: 0 auto;
+  background-color: #01a89e;
+}
+
+.menu-footer {
+  float: right;
+  background-color: #01a89e;
+}
+
+.menu-footer ul li {
+  line-height: 40px;
+  background-color: #01a89e;
+}
+
+.menu-footer ul li a {
+  color: black;
+  font-size: 18px;
+  background-color: #01a89e;
+}
+
+.menu-footer ul li a:hover {
+  color: red;
+  background-color: #01a89e;
+}
+
+.decription-footer {
+  text-align: justify;
+  line-height: 30px;
+  float: right;
+  background-color: #01a89e;
+}
+
+.decription-footer h1 {
+  margin-bottom: 10px;
+  color: white;
+  font-size: 30px;
+  background-color: #01a89e;
+}
+
+.social-footer {
+  float: left;
+  font-size: 25px;
+  margin-left: -50px;
+  background-color: #01a89e;
+}
+
+.social-footer img {
+  margin: 10px 20px;
+  width: 35px;
+  height: 35px;
+  background-color: #01a89e;
+}
+
+.social-footer img:hover {
+  -webkit-filter: drop-shadow(0 0 8px black);
+  filter: drop-shadow(0 0 8px black);
+  background-color: #01a89e;
+}
+
+.text-footer p {
+  text-align: center;
+  font-size: 15px;
+  margin-top: 15px;
+  background-color: #01a89e;
+}
+*/

@@ -23,8 +23,42 @@ urlpatterns = [
 	url(r'^concerts/(?P<pk>\d+)/$', views.ConcertDetailView.as_view(),
 		name='concert_detail'),
 
-	url(r'^buy/$', views.BuyTicketView.as_view(), name='buy_ticket'),
-	
+	# buy film ticket
+	url(r'^films/(?P<pk>\d+)/buy/$', views.FilmTicketBuyView.as_view(),
+		name='buy_film_ticket'),
+
+	# buy theater ticket
+	url(r'^theaters/(?P<pk>\d+)/buy/$', views.TheaterTicketBuyView.as_view(),
+		name='buy_theater_ticket'),
+
+	# buy concert ticket
+	url(r'^concerts/(?P<pk>\d+)/buy/$', views.ConcertTicketBuyView.as_view(),
+		name='buy_concert_ticket'),
+
+	# remove film ticket
+	url(r'^films/(?P<pk>\d+)/remove/$', views.FilmTicketRemoveView.as_view(),
+		name='remove_film_ticket'),
+
+	# remove theater ticket
+	url(r'^theaters/(?P<pk>\d+)/remove/$',
+		views.TheaterTicketRemoveView.as_view(),
+		name='remove_theater_ticket'),
+
+	# remove concert ticket
+	url(r'^concerts/(?P<pk>\d+)/remove/$',
+		views.ConcertTicketRemoveView.as_view(),
+		name='remove_concert_ticket'),
+
+	# payment_success
+	url(r'^payment_success/$', views.PaymentSuccess.as_view(),
+		name='payment_success'),
+
+	# buy theater ticket
+	# url(r'^films/buy/$', views.BuyFilmTicketView.as_view(),name='buy_film_ticket'),
+
+	# buy concert ticket
+	# url(r'^films/buy/$', views.BuyFilmTicketView.as_view(),name='buy_film_ticket'),
+
 	# url(r'^payment/$', views.PaymentView.as_view(), name='payment'),	
 	
 ]

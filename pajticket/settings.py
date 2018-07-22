@@ -130,3 +130,5 @@ MEDIA_ROOT = 'media'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'

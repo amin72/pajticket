@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'', include('tickets.urls', namespace='tickets')),
     
     # news
-    url(r'', include('news.urls', namespace='news')),
+    url(r'^news/', include('news.urls', namespace='news')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -3,10 +3,12 @@ from django.views import generic
 from django.contrib.auth.models import User
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.utils import timezone
+
 from braces import views
  
 from .forms import LoginForm, RegistrationForm
-
+from tickets.models import FilmTicket, TheaterTicket, ConcertTicket
 
 
 class LoginView(views.AnonymousRequiredMixin,
@@ -31,7 +33,6 @@ class LoginView(views.AnonymousRequiredMixin,
 			return self.form_invalid(form)
 
 
-
 class SignUpView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
 	generic.CreateView):
 	form_class = RegistrationForm
@@ -39,7 +40,6 @@ class SignUpView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
 	model = User
 	success_url = reverse_lazy('accounts:login')
 	form_valid_message = ''
-
 
 
 
@@ -51,6 +51,16 @@ class LogoutView(views.LoginRequiredMixin, generic.RedirectView):
 		return super().get(request, *args, **kwargs)
 
 
-
-class DashboardView(generic.TemplateView):
+class DashboardView(views.LoginRequiredMixin, generic.TemplateView):
 	template_name = 'accounts/dashboard.html'
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['film_tickets'] = FilmTicket.objects.filter(
+			user=self.request.user)
+		context['theater_tickets'] = TheaterTicket.objects.filter(
+			user=self.request.user)
+		context['concert_tickets'] = ConcertTicket.objects.filter(
+			user=self.request.user)
+		context['now'] = timezone.now()
+		return context

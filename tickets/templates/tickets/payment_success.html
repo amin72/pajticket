@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ block.super }} | پرداخت{% endblock %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		{% if ticket %}
+			<p class="big">پرداخت با موفقیت انجام شد. با تشکر از خرید شما</p>
+		{% else %}
+			<p class="big">شما اجازه دسترسی به این صفحه را ندارید.</p>
+		{% endif %}
+
+		جهت بازگشت به خانه <a href="{% url 'tickets:home' %}">اینجا</a> کلیک کنید.
+	</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block title %}{{ block.super }} | فیلم ها{% endblock %}
+
+{% block content %}
+
+<!-- news -->
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary news-top-space">
+            <div class="panel-heading heading text-center">
+                <h4><strong>عناوین اخبار سایت پاج تیکت</strong></h4>
+            </div>
+            <div class="panel-body">
+                {% if object_list.count > 0 %}
+                    <ul class="list-group">
+                        {% for news in object_list %}
+                            <li class="list-group-item space title">
+                                <a href="{% url 'news:detail' pk=news.pk %}">{{ news.title }}</a>
+                                <span class="label label-default news-date pull-left">
+                                    {{ news.date }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,18 +1,119 @@
 {% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
 
-{% block content %}
-<div class="main">
-	<div class="container">
-        <div class="row">
-            <div class="content-right col-xm-12 col-sm-12 col-md-9 col-lg-9">
-                <div class="content">
-					XXXXXXXXXXX
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
+{% block title %}داشبورد | {{ block.super }}{% endblock %}
+
+{% block headline %}
+	<h2>داشبورد</h2>
 {% endblock %}
 
-<!-- بلیط های خریداری شده -->
-<!-- اطلاعات مشتری -->
+{% block content %}
+
+<!-- user information -->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading heading">اطلاعات کاربری</div>
+
+            <div class="panel-body">
+                <ul class="list-no-style user-info">
+                	<li>
+                    	نام کاربری: <strong>{{ user.username }}</strong>
+                    </li>
+                	{% if user.first_name %}
+                    	<li>
+                    		نام: <strong>{{ user.first_name }}</strong>
+                    	</li>
+                	{% endif %}
+
+                    {% if user.last_name %}
+                    	<li>
+                    		نام خانوادگی: <strong>{{ user.last_name }}</strong>
+                    	</li>
+                	{% endif %}
+                    {% if user.email %}
+                    	<li>
+                    		ایمیل: <strong>{{ user.email }}</strong>
+                    	</li>
+                	{% endif %}
+                </ul>
+                
+                <a class="btn btn-danger btn-sm" href="#">ویرایش اطلاعات کاربری</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- tickets -->
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-primary">
+            <div class="panel-heading heading">آخرین بلیط های خریداری شده</div>
+
+            <div class="panel-body">
+
+                {% if film_tickets.count > 0 %}
+                    <h4 class="well text-center">فیلم ها <span class="label label-info">{{ film_tickets.count }}</span></h4>
+                    <ul class="list-group list-no-style">
+                        {% for ticket in film_tickets %}
+                            <li class="list-group-item">
+                                <strong>{{ ticket.title }}</strong>
+
+                                <span class="label pull-left big-label{% if ticket.film.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.film.running_time }}</span>
+
+                                {% if ticket.film.running_time < now %}
+                                    <a class="pull-left big-label label label-danger btn-space" href="{% url 'tickets:remove_film_ticket' pk=ticket.pk %}">حذف</a>
+                                {% else %}
+                                    <a class="pull-left big-label label label-primary btn-space" href="{% url 'tickets:film_detail' pk=ticket.film.pk %}">مشاهده جزییات فیلم</a>
+                                {% endif %}
+
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if theater_tickets.count > 0 %}
+                    <h4 class="well text-center top-space">تئاتر ها <span class="label label-info">{{ theater_tickets.count }}</span></h4>
+                    <ul class="list-group list-no-style">
+                        {% for ticket in theater_tickets %}
+                            <li class="list-group-item">
+                                <strong>{{ ticket.title }}</strong>
+
+                                <span class="label pull-left big-label{% if ticket.theater.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.theater.running_time }}</span>
+
+                                {% if ticket.theater.running_time < now %}
+                                    <a class="pull-left big-label label label-danger btn-space" href="{% url 'tickets:remove_theater_ticket' pk=ticket.pk %}">حذف</a>
+                                {% else %}
+                                    <a class="pull-left big-label label label-primary btn-space" href="{% url 'tickets:theater_detail' pk=ticket.theater.pk %}">مشاهده جزییات تئاتر</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                {% if concert_tickets.count > 0 %}
+                    <h4 class="well text-center top-space">کنسرت ها <span class="label label-info">{{ concert_tickets.count }}</span></h4>
+                    <ul class="list-group list-no-style">
+                        {% for ticket in concert_tickets %}
+                            <li class="list-group-item">
+                                <strong>{{ ticket.title }}</strong>
+
+                                <span class="label pull-left big-label{% if ticket.concert.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.concert.running_time }}</span>
+
+                                {% if ticket.concert.running_time < now %}
+                                    <a class="pull-left big-label label label-danger btn-space" href="{% url 'tickets:remove_concert_ticket' pk=ticket.pk %}">حذف</a>
+                                {% else %}
+                                    <a class="pull-left big-label label label-primary btn-space" href="{% url 'tickets:concert_detail' pk=ticket.concert.pk %}">مشاهده جزییات کنسرت</a>
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

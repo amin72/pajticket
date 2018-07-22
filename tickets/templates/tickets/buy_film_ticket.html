@@ -1,0 +1,35 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ block.super }} | خرید بلیط {{ object.title }}{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+	<div class="col-md-5 col-md-offset-1">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading heading">خرید بلیط {{ object.title }}</div>
+
+            <div class="panel-body">
+       			{% crispy form %}
+       			<hr>
+       			<h4>
+       				<span class="label label-default">قیمت: ۲۰۰۰۰ تومان</span>
+   				</h4>
+            </div>
+        </div>
+	</div>
+	<div class="col-md-5">
+		<img class="img-responsive img-thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ object.title }}">
+		<h2>
+			<span class="label label-danger">{{ object.title }}</span>
+			<span class="label label-default">{{ object.director }}</span>
+			<span class="label label-primary">{{ object.release_date.year }}</span>
+		</h2>
+	</div>
+</div>
+
+{% endblock %}
