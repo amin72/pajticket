@@ -7,21 +7,17 @@
 
 <!-- news -->
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-        <h1 class="text-center well">اخبار سایت پاج تیکت</h1>
-        {% if object_list.count > 0 %}
-            {% for news in object_list %}
-                <div class="panel panel-primary news-top-space">
-                    <div class="panel-heading heading">
-                        <strong>{{ news.title }}</strong>
-                    </div>
-                    <div class="panel-body">
-                        <div class="well news-text">{{ news.text }}</div>
-                        <span class="label label-default news-date">{{ news.date }}</span>
-                    </div>
-                </div>
-            {% endfor %}            
-        {% endif %}
+    <div class="col-md-10 col-md-offset-1">
+        <div class="panel panel-primary news-top-space">
+            <div class="panel-heading heading">
+                <strong>{{ object.title }}</strong>
+            </div>
+            <div class="panel-body">
+                <div class="well news-text">{{ object.text }}</div>
+                <span class="label label-default news-date">{{ object.date }}</span>
+            </div>
+        </div>
+        <a href="{% url 'news:list' %}" class="btn btn-primary">مشاهده اخبار</a>
     </div>
 </div>
 

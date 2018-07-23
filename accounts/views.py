@@ -18,7 +18,7 @@ class LoginView(views.AnonymousRequiredMixin,
 	model = User
 	success_url = reverse_lazy('tickets:home')
 	template_name = 'accounts/login.html'
-	form_valid_message = 'شما با موفقیت وارد سایت شدید'
+	form_valid_message = ''
 
 	def form_valid(self, form):
 		username = form.cleaned_data.get('username')

@@ -3,6 +3,21 @@
 
 {% block title %}ورود | {{ block.super }}{% endblock %}
 
+{% block headline %}
+	<h2>ورود به سایت رزومه</h2>
+{% endblock %}
+
 {% block content %}
-	{% crispy form %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading heading text-center big">ورود کاربر</div>
+			<div class="panel-body">
+				{% crispy form %}
+            </div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}

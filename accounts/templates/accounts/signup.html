@@ -4,5 +4,14 @@
 {% block title %}عضویت | {{ block.super }}{% endblock %}
 
 {% block content %}
-	{% crispy form %}
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading heading text-center big">عضویت کاربر</div>
+			<div class="panel-body">
+				{% crispy form %}
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
