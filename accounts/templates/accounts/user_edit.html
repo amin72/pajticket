@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}ویرایش اطلاعات دانشجو | {{ block.super }}{% endblock %}
+
+{% block headline %}
+	<h2>ویرایش اطلاعات دانشجو</h2>
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <div class="panel panel-primary">
+            <div class="panel-heading heading">ویرایش اطلاعات دانشجو</div>
+            <div class="panel-body">
+                {% crispy form %}
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

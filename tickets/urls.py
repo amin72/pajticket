@@ -53,12 +53,11 @@ urlpatterns = [
 	url(r'^payment_success/$', views.PaymentSuccess.as_view(),
 		name='payment_success'),
 
-	# buy theater ticket
-	# url(r'^films/buy/$', views.BuyFilmTicketView.as_view(),name='buy_film_ticket'),
+	# contact us
+	url(r'^contact_us/$', views.ContactUsView.as_view(),
+		name='contact_us'),	
 
-	# buy concert ticket
-	# url(r'^films/buy/$', views.BuyFilmTicketView.as_view(),name='buy_film_ticket'),
-
-	# url(r'^payment/$', views.PaymentView.as_view(), name='payment'),	
-	
+	# search
+	url(r'^search/$', views.SearchView.as_view(),
+		name='search'),
 ]

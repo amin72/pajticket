@@ -7,7 +7,7 @@ from django.utils import timezone
 
 from braces import views
  
-from .forms import LoginForm, RegistrationForm
+from .forms import LoginForm, RegistrationForm, UserEditForm
 from tickets.models import FilmTicket, TheaterTicket, ConcertTicket
 
 
@@ -18,7 +18,7 @@ class LoginView(views.AnonymousRequiredMixin,
 	model = User
 	success_url = reverse_lazy('tickets:home')
 	template_name = 'accounts/login.html'
-	form_valid_message = ''
+	form_valid_message = 'شما با موفقیت وارد سایت پاج تیکت شدید'
 
 	def form_valid(self, form):
 		username = form.cleaned_data.get('username')
@@ -39,7 +39,7 @@ class SignUpView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
 	template_name = 'accounts/signup.html'
 	model = User
 	success_url = reverse_lazy('accounts:login')
-	form_valid_message = ''
+	form_valid_message = 'شما در سایت پاج تیکت عضو شدید. اکنون می توانید وارد سایت شوید'
 
 
 
@@ -56,11 +56,32 @@ class DashboardView(views.LoginRequiredMixin, generic.TemplateView):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['film_tickets'] = FilmTicket.objects.filter(
-			user=self.request.user)
-		context['theater_tickets'] = TheaterTicket.objects.filter(
-			user=self.request.user)
-		context['concert_tickets'] = ConcertTicket.objects.filter(
-			user=self.request.user)
+		films = FilmTicket.objects.filter(user=self.request.user)
+		theaters = TheaterTicket.objects.filter(user=self.request.user)
+		concerts = ConcertTicket.objects.filter(user=self.request.user)
+
+		total_tickets = films.count()
+		total_tickets += theaters.count()
+		total_tickets += concerts.count()
+
+		context['film_tickets'] = films
+		context['theater_tickets'] = theaters
+		context['concert_tickets'] = concerts
+		context['total_tickets'] = total_tickets
 		context['now'] = timezone.now()
 		return context
+
+
+
+class UserEditView(views.LoginRequiredMixin,
+	views.FormValidMessageMixin,
+	generic.edit.UpdateView):
+	
+	template_name = 'accounts/user_edit.html'
+	form_class = UserEditForm
+	model = User
+	success_url = reverse_lazy('accounts:dashboard')
+	form_valid_message = 'اطلاعات کاربری با موفقیت بروزرسانی شد'
+
+	def get_object(self):
+		return self.request.user

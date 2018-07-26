@@ -198,3 +198,41 @@ class PaymentSuccess(generic.TemplateView, views.LoginRequiredMixin):
 		context = super().get_context_data(**kwargs)
 		context['ticket'] = self.request.session.pop('ticket', None)
 		return context
+
+
+class ContactUsView(views.LoginRequiredMixin,
+	views.FormValidMessageMixin,
+	generic.CreateView):
+
+	template_name = 'tickets/concat_us.html'
+	form_class = forms.ContactUsForm
+	form_valid_message = 'پیام شما با موفقیت ارسال شد'
+	success_url = reverse_lazy('tickets:contact_us')
+
+	def form_valid(self, form):
+		obj = form.save(commit=False)
+		obj.user = self.request.user
+		obj.save()
+		return super().form_valid(form)
+
+
+class SearchView(generic.ListView):
+	template_name = 'tickets/search.html'
+
+	# def get_context_data(self, **kwargs):
+	# 	context = super().get_context_data(**kwargs)
+	# 	context['result'] = 'aaaaaaaaaaa'
+	# 	return context
+
+	def get_queryset(self):
+		result = {}
+		result['x'] = 1
+		result['y'] = 2
+		
+	def get(self, request, *args, **kwargs):
+		q = request.GET.get('q')
+		return super().get(request, *args, **kwargs)
+
+	def post(self, request, *args, **kwargs):
+		print('POST:', request.POST)
+		return super().get(request, *args, **kwargs)

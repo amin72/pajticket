@@ -8,7 +8,7 @@
 <div class="clear"></div>
 
 <div class="row">
-    <div class="col-md-10 col-md-offset-1">
+    <div class="col-md-9">
         {% for theater in object_list %}
             <div class="col-md-3 col-sm-6">
                 <div class="space">
@@ -23,6 +23,11 @@
                 </div>
             </div>   
         {% endfor %}
+    </div>
+    <div class="col-md-3">
+        {% block advertisement %}
+            {% include "layouts/advertisement.html" %}
+        {% endblock %}
     </div>
 </div>
 

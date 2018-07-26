@@ -23,7 +23,4 @@ admin.site.register(models.Concert)
 
 admin.site.register(models.Place)
 
-# Price
-# admin.site.register(models.FilmPrice)
-# admin.site.register(models.TheaterPrice)
-# admin.site.register(models.ConcertPrice)
+admin.site.register(models.ContactUs)

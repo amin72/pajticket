@@ -44,7 +44,17 @@
                             <a href="{% url 'news:list' %}">اخبار</a>
                         </li>
                         <li>
-                            <a href="#">تماس با ما</a>
+                            <a href="{% url 'tickets:contact_us' %}">
+                                تماس با ما
+                            </a>
+                        </li>
+                        <li>
+                            <form class="navbar-form" action="{% url 'tickets:search' %}">
+                                <div class="form-group">
+                                    <input type="text" name='q' class="form-control" placeholder="جستجو...">
+                                </div>
+                                <button type="جستجو" class="btn btn-default">جستجو</button>
+                            </form>
                         </li>
                     </ul>
 

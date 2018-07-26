@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import (UserCreationForm,
+	AuthenticationForm, UserChangeForm)
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
@@ -58,3 +59,32 @@ class RegistrationForm(UserCreationForm):
 		user.email = self.cleaned_data.get('email')
 		user.save()
 		return user
+
+
+class UserEditForm(forms.ModelForm):
+	first_name = forms.CharField(max_length=255, label='نام')
+	last_name = forms.CharField(max_length=255, label='نام خانوادگی')
+	email = forms.EmailField(max_length=255, label='ایمیل')
+
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+
+		self.helper = FormHelper()
+		self.helper.layout = Layout(
+			'first_name', 'last_name', 'email',
+			ButtonHolder(
+				Submit('update', 'ویرایش', css_class='btn-primary')
+			)
+		)
+
+	def clean_email(self):
+		username = self.instance.username
+		email = self.cleaned_data.get('email')
+		users = User.objects.filter(email__iexact=email).exclude(username__iexact=username)
+		if users:
+			raise ValidationError('ایمیل {} قبلا استفاده شده است'.format(email))
+		return email.lower()
+
+	class Meta:
+		model = User
+		fields = ('first_name', 'last_name', 'email')

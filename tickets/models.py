@@ -202,3 +202,16 @@ class ConcertTicket(Ticket):
 
 	class Meta:
 		verbose_name_plural = 'Concert Tickets'
+
+
+class ContactUs(models.Model):
+	user = models.ForeignKey(User, on_delete=models.CASCADE,
+		verbose_name='کاربر')
+	text = models.TextField(verbose_name='متن')
+	date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
+
+	def __str__(self):
+		return '{} - {}'.format(self.user, self.date)
+
+	class Meta:
+		verbose_name_plural = 'Contact Us'

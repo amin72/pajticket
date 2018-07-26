@@ -51,6 +51,23 @@ class ConcertTicket(forms.ModelForm):
 		self.helper.layout = Layout(
 			'row',
 			ButtonHolder(
-				Submit('but', 'خرید', css_class='btn-primary')
+				Submit('buy', 'خرید', css_class='btn-primary')
 			)
 		)
+
+
+class ContactUsForm(forms.ModelForm):
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.helper = FormHelper()
+		self.helper.layout = Layout(
+			'text',
+			ButtonHolder(
+				Submit('submit', 'ارسال', css_class='btn-primary')
+			)
+		)
+
+	class Meta:
+		model = models.ContactUs
+		fields = ('text',)
+		
