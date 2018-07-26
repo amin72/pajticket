@@ -1,0 +1,18 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+{% if query %}
+	<h3>نتایج جستجو</h3>
+	{% for result in page.object_list %}
+		<p>
+			<a href="{{ result.object.get_absolute_url }}">
+				{{ result.object.title }}
+			</a>
+		</p>
+	{% empty %}
+		<p>نتیجه ای یافت نشد.</p>
+	{% endfor %}
+{% endif %}
+
+{% endblock %}

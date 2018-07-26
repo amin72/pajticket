@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Place(models.Model):
@@ -7,6 +8,19 @@ class Place(models.Model):
 
 	def __str__(self):
 		return self.name
+
+
+def calculate_price_by_row(price, row):
+	# add 20% to ticket price if row is 1
+	if row == 1:
+		return price + (price / 100) * 20
+	
+	# add 10% to ticket price if row is 2
+	elif row == 2:
+		return price + (price / 100) * 10
+
+	# row 3 is already set
+	return price
 
 
 class Ticket(models.Model):
@@ -28,14 +42,7 @@ class Ticket(models.Model):
 		return '{}, {}'.format(self.title, self.place)
 
 	def save(self):
-		# add 20% to ticket price if row is 1
-		if self.row == 1:
-			self.price += (self.price / 100) * 20
-
-		# add 10% to ticket price if row is 2
-		elif self.row == 2:
-			self.price += (self.price / 100) * 10
-		# row 3 is already set
+		self.price = calculate_price_by_row(self.price, self.row)
 		return super().save()
 
 	class Meta:
@@ -139,6 +146,9 @@ class Film(models.Model):
 	def __str__(self):
 		return self.title
 
+	def get_absolute_url(self):
+		return reverse('tickets:film_detail', kwargs={'pk': self.pk})
+
 
 class FilmTicket(Ticket):
 	film = models.ForeignKey(Film, on_delete=models.CASCADE,
@@ -162,6 +172,9 @@ class Theater(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return reverse('tickets:theater_detail', kwargs={'pk': self.pk})
 
 
 class TheaterTicket(Ticket):
@@ -194,6 +207,9 @@ class Concert(models.Model):
 
 	def __str__(self):
 		return self.title
+
+	def get_absolute_url(self):
+		return reverse('tickets:concert_detail', kwargs={'pk': self.pk})
 
 
 class ConcertTicket(Ticket):

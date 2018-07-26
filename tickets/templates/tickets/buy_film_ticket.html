@@ -17,7 +17,9 @@
        			{% crispy form %}
        			<hr>
        			<h4>
-       				<span class="label label-default">قیمت: ۲۰۰۰۰ تومان</span>
+       				<div class="label label-default">
+       					قیمت: <span id="price">{{ price }}</span> تومان
+       				</div>
    				</h4>
             </div>
         </div>
@@ -32,4 +34,11 @@
 	</div>
 </div>
 
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="{% static 'js/ticket_price.js' %}"></script>
+	<script type="text/javascript">
+		calculate_price('film');
+	</script>
 {% endblock %}

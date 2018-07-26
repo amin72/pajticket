@@ -2,7 +2,11 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
+from reportlab.pdfgen import canvas
+from django.http import HttpResponse
+
 from braces import views
+from django.http import JsonResponse
 
 from . import models as ticket_models
 from news import models as news_models
@@ -67,15 +71,17 @@ class FilmTicketBuyView(views.LoginRequiredMixin,
 			ticket.price = FILM_PRICE
 			ticket.film = film
 			ticket.save()
-			request.session['ticket'] = str(ticket)
+			request.session['ticket_type'] = 'film'
+			request.session['ticket_pk'] = str(ticket.pk)
 			return redirect(reverse_lazy('tickets:payment_success'))
 		return self.get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
-		context.update(
-			{'form': self.form_class(self.request.POST or None)}
-		)
+		context.update({
+			'form': self.form_class(self.request.POST or None),
+			'price': FILM_PRICE
+		})
 		return context
 
 
@@ -113,15 +119,17 @@ class TheaterTicketBuyView(views.LoginRequiredMixin,
 			ticket.price = THEATER_PRICE
 			ticket.theater = theater
 			ticket.save()
-			request.session['ticket'] = str(ticket)
+			request.session['ticket_type'] = 'theater'
+			request.session['ticket_pk'] = str(ticket.pk)
 			return redirect(reverse_lazy('tickets:payment_success'))
 		return self.get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
-		context.update(
-			{'form': self.form_class(self.request.POST or None)}
-		)
+		context.update({
+			'form': self.form_class(self.request.POST or None),
+			'price': THEATER_PRICE
+		})
 		return context
 
 
@@ -161,16 +169,18 @@ class ConcertTicketBuyView(views.LoginRequiredMixin,
 			ticket.concert = concert
 			ticket.place = concert.place
 			ticket.save()
-			request.session['ticket'] = str(ticket)
+			request.session['ticket_type'] = 'concert'
+			request.session['ticket_pk'] = str(ticket.pk)
 			return redirect(reverse_lazy('tickets:payment_success'))
 		print(form)
 		return self.get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):
 		context = super().get_context_data(*args, **kwargs)
-		context.update(
-			{'form': self.form_class(self.request.POST or None)}
-		)
+		context.update({
+			'form': self.form_class(self.request.POST or None),
+			'price': CONCERT_PRICE
+		})
 		return context
 
 
@@ -196,7 +206,20 @@ class PaymentSuccess(generic.TemplateView, views.LoginRequiredMixin):
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['ticket'] = self.request.session.pop('ticket', None)
+		
+		ticket_type = self.request.session.pop('ticket_type', None)
+		ticket_pk = self.request.session.pop('ticket_pk', None)
+
+		if ticket_type == 'film':
+			ticket = ticket_models.FilmTicket.objects.get(pk=ticket_pk)
+		elif ticket_type == 'theater':
+			ticket = ticket_models.TheaterTicket.objects.get(pk=ticket_pk)
+		elif ticket_type == 'concert':
+			ticket = ticket_models.ConcertTicket.objects.get(pk=ticket_pk)
+		else:
+			ticket = None
+
+		context['ticket'] = ticket
 		return context
 
 
@@ -216,23 +239,19 @@ class ContactUsView(views.LoginRequiredMixin,
 		return super().form_valid(form)
 
 
-class SearchView(generic.ListView):
-	template_name = 'tickets/search.html'
+def calculate_price(request):
+	item_type = request.GET.get('type')
+	row = int(request.GET.get('row'))
+	
+	if item_type == 'film':
+		price = FILM_PRICE
+	elif item_type == 'theater':
+		price = THEATER_PRICE
+	elif item_type == 'concert':
+		price = CONCERT_PRICE
+	else:
+		price = 0
 
-	# def get_context_data(self, **kwargs):
-	# 	context = super().get_context_data(**kwargs)
-	# 	context['result'] = 'aaaaaaaaaaa'
-	# 	return context
-
-	def get_queryset(self):
-		result = {}
-		result['x'] = 1
-		result['y'] = 2
-		
-	def get(self, request, *args, **kwargs):
-		q = request.GET.get('q')
-		return super().get(request, *args, **kwargs)
-
-	def post(self, request, *args, **kwargs):
-		print('POST:', request.POST)
-		return super().get(request, *args, **kwargs)
+	price = ticket_models.calculate_price_by_row(price, row)
+	data = {'price': price}
+	return JsonResponse(data)

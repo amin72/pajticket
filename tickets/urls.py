@@ -57,7 +57,7 @@ urlpatterns = [
 	url(r'^contact_us/$', views.ContactUsView.as_view(),
 		name='contact_us'),	
 
-	# search
-	url(r'^search/$', views.SearchView.as_view(),
-		name='search'),
+	# calculate_price
+	url(r'^calculate_price/$', views.calculate_price,
+		name='calculate_price'),
 ]

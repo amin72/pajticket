@@ -11,8 +11,27 @@
 			<p class="big">
 				پرداخت با موفقیت انجام شد. با تشکر از خرید شما
 			</p>
+			<p class="space">
+				{{ ticket }}
+				<ul class="list-group">
+					<li class="list-group-item">
+						نام: <strong>{{ ticket.title }}</strong>
+					</li>
+					<li class="list-group-item">
+						مکان: <strong>{{ ticket.place }}</strong>
+					</li>
+					<li class="list-group-item">
+						ردیف: <strong>{{ ticket.row }}</strong>
+					</li>
+					<li class="list-group-item">
+						مبلغ: <strong>{{ ticket.price }}</strong>
+					</li>
+				</ul>
+			</p>
 			<p>
-				<a class="btn btn-primary" href="#">چاپ بلیط</a>
+				<a class="btn btn-primary" href="javascript:window.print()">
+					چاپ بلیط
+				</a>
 			</p>
 		{% else %}
 			<p class="big">شما اجازه دسترسی به این صفحه را ندارید.</p>

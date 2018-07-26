@@ -81,7 +81,7 @@ class UserEditView(views.LoginRequiredMixin,
 	form_class = UserEditForm
 	model = User
 	success_url = reverse_lazy('accounts:dashboard')
-	form_valid_message = 'اطلاعات کاربری با موفقیت بروزرسانی شد'
+	form_valid_message = 'اطلاعات کاربری با موفقیت بروزرسانی شدند'
 
 	def get_object(self):
 		return self.request.user
