@@ -110,3 +110,9 @@ html, body {
 	height: 320px;
 	width: 460px;	
 }
+
+.news-list {
+	margin-top: 10px;
+	font-size: 17px;
+	font-weight: bold;
+}
