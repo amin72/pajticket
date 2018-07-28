@@ -227,7 +227,7 @@ class ContactUsView(views.LoginRequiredMixin,
 	views.FormValidMessageMixin,
 	generic.CreateView):
 
-	template_name = 'tickets/concat_us.html'
+	template_name = 'tickets/contact_us.html'
 	form_class = forms.ContactUsForm
 	form_valid_message = 'پیام شما با موفقیت ارسال شد'
 	success_url = reverse_lazy('tickets:contact_us')

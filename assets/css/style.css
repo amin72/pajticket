@@ -95,3 +95,18 @@ html, body {
 .container .text-muted {
     margin: 20px 0;
 }
+
+.cover-home {
+	min-height: 200px;
+	min-width: 200px;
+	height: 200px;
+	width: 200px;
+	margin: 0 auto;
+}
+
+.cover-detail {
+	min-height: 320px;
+	min-width: 460px;
+	height: 320px;
+	width: 460px;	
+}

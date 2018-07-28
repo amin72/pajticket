@@ -3,12 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 
-class Place(models.Model):
-	name = models.CharField(max_length=255, verbose_name='مکان')
-
-	def __str__(self):
-		return self.name
-
+### Helpers ###
 
 def calculate_price_by_row(price, row):
 	# add 20% to ticket price if row is 1
@@ -21,6 +16,15 @@ def calculate_price_by_row(price, row):
 
 	# row 3 is already set
 	return price
+
+
+### Models ###
+
+class Place(models.Model):
+	name = models.CharField(max_length=255, verbose_name='مکان')
+
+	def __str__(self):
+		return self.name
 
 
 class Ticket(models.Model):
@@ -162,7 +166,10 @@ class FilmTicket(Ticket):
 class Theater(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
 	director = models.ForeignKey(Director, verbose_name='کارگردان')
+	producer = models.ForeignKey(Producer, verbose_name='تهیه کننده')
 	running_time = models.DateTimeField(verbose_name='زمان نمایش فیلم')
+	length = models.PositiveIntegerField(verbose_name='مدت زمان')
+	language = models.ForeignKey(Language, verbose_name='زبان')
 	actors = models.ManyToManyField(Actor, verbose_name='ستارگان')
 	description = models.TextField(verbose_name='خلاصه داستان')
 	genre = models.ForeignKey(Genre, verbose_name='ژانر')
@@ -189,7 +196,6 @@ class Song(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
 	singer = models.ForeignKey(People, verbose_name='خواننده')
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
-	cover = models.ImageField(upload_to='images/songs/', verbose_name='کاور', default='')
 
 	def __str__(self):
 		return self.title + ", " + str(self.singer)
@@ -204,6 +210,8 @@ class Concert(models.Model):
 	length = models.PositiveIntegerField(verbose_name='مدت اجرا کنسرت')
 	description = models.TextField(verbose_name='توضیحات')
 	place = models.ForeignKey(Place, verbose_name='مکان')
+	cover = models.ImageField(upload_to='images/concerts/',
+		verbose_name='کاور')
 
 	def __str__(self):
 		return self.title

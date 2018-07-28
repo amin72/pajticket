@@ -13,7 +13,7 @@
             <div class="col-md-3 col-sm-6">
                 <div class="space">
                     <a href="{% url 'tickets:theater_detail' pk=theater.pk %}">
-                        <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ theater.title }}">
+                        <img class="img-thumbnail img-responsive thumbnail cover-home" src="{{ theater.cover.url }}" alt="{{ theater.title }}">
                     </a>
                 </div>
                 <div class="text-center space">{{ theater.title }}</div>

@@ -75,10 +75,10 @@
 
         <div class="row">
             {% for film in films %}
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:film_detail' pk=film.pk %}">
-                            <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ film.title }}">
+                            <img class="img-thumbnail img-responsive thumbnail cover-home" src="{{ film.cover.url }}" alt="{{ film.title }}">
                         </a>
                     </div>
                     <div class="text-center space">
@@ -106,7 +106,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="space">
                         <a href="{% url 'tickets:theater_detail' pk=theater.pk %}">
-                            <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ theater.title }}">
+                            <img class="img-thumbnail img-responsive thumbnail cover-home" src="{{ theater.cover.url }}" alt="{{ theater.title }}">
                         </a>
                     </div>
                     <div class="text-center space">
@@ -134,7 +134,7 @@
                 <div class="col-md-3 col-sm-6">
                     <div class="space">
                         <a href="{% url 'tickets:concert_detail' pk=concert.pk %}">
-                            <img class="img-thumbnail img-responsive thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ concert.title }}">
+                            <img class="img-thumbnail img-responsive thumbnail cover-home" src="{{ concert.cover.url }}" alt="{{ concert.title }}">
                         </a>
                     </div>
                     <div class="text-center space">
