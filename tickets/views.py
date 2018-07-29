@@ -11,6 +11,8 @@ from django.http import JsonResponse
 from . import models as ticket_models
 from news import models as news_models
 from . import forms
+from advertisements import models as ad_models
+from slider import models as slider_models
 
 
 FILM_PRICE = 20000
@@ -27,6 +29,27 @@ class HomePageView(generic.TemplateView):
 		context['theaters'] = ticket_models.Theater.objects.all()[:8]
 		context['concerts'] = ticket_models.Concert.objects.all()[:8]
 		context['news'] = news_models.News.objects.all()[:8]
+		context['advertisements'] = ad_models.Advertisement.objects.all()[:2]
+		slides = slider_models.Slide.objects.all()[:3]
+
+		# check if any of the slides is active		
+		active = False
+		for slide in slides:
+			# if found active slide, make other slides inactive
+			if active:
+				slide.active = False
+				slide.save()
+			# if found any active slide, save the state
+			if slide.active:
+				active = True
+
+		# if no slide is active, make the first one active
+		if not active:
+			slide = slides[0]
+			slide.active = True
+			slide.save()
+
+		context['slides'] = slides
 		return context
 
 

@@ -116,3 +116,17 @@ html, body {
 	font-size: 17px;
 	font-weight: bold;
 }
+
+.header-top {
+	margin-top: 20px;
+}
+
+.header-bottom {
+	margin-bottom: 20px;
+}
+
+.slider {
+	width: 100%;
+	height: 500px !important;
+	min-height: 500px !important;
+}

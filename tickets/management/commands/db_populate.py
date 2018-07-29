@@ -7,8 +7,12 @@ from tickets.models import (Country, People, Language, Genre,
 							Actor, Director, Producer, Writer, Film,
 							Theater, Song, Concert, Place)
 
+from advertisements.models import Advertisement
 from news.models import News
+from slider.models import Slide
 
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 users = [
 	dict(username='amin', password='amin1234', email='amin@example.com', first_name='امین', last_name='امینی'),
@@ -71,7 +75,6 @@ people = [
 	dict(first_name='مهرنوش', last_name='فاطمی', gender='f', birth_day=timezone.datetime(2000, 1, 20)),
 ]
 
-
 films = [
 	dict(title='سریع و خشن ۱', cover='images/films/01.jpg', release_date=timezone.datetime(2001, 3, 5), running_time=timezone.datetime(2018, 8, 28), length=120, description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 	dict(title='سریع و خشن ۲', cover='images/films/02.jpg', release_date=timezone.datetime(2003, 3, 5), running_time=timezone.datetime(2018, 8, 25), length=120, description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
@@ -96,7 +99,6 @@ theaters = [
 	dict(title='داماد دیوانه ۸', cover='images/theaters/08.jpg', length=215, running_time=timezone.datetime(2015, 3, 15), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 ]
 
-
 reza_sadeghi = People.objects.create(first_name='رضا', last_name='صادقی', gender='m', birth_day=timezone.datetime(1980, 1, 28))
 ali_lohrasbi = People.objects.create(first_name='علی', last_name='لهراسبی', gender='m', birth_day=timezone.datetime(1982, 5, 12))
 
@@ -116,7 +118,6 @@ concerts = [
 	dict(title='کنسرت رضا صادقی', cover='images/concerts/01.jpg', artist=reza_sadeghi, place=Place.objects.create(name='خیابان آزادی'), length=60, running_time=timezone.datetime(2018, 8, 10), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 	dict(title='کنسرت علی لهراسبی', cover='images/concerts/02.jpg', artist=ali_lohrasbi, place=Place.objects.create(name='پارک ولیعصر'), length=100, running_time=timezone.datetime(2018, 9, 25), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 ]
-
 
 news = [
 	dict(title='اسامی فیلم‌های خارجی بخش «جشنواره جشنواره‌ها» اعلام شد/ فیلم‌هایی از آمریکای جنوبی و اروپا در فهرست هستند', text='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
@@ -140,6 +141,17 @@ places = [
 	dict(name='سینما حافظ'),
 	dict(name='سینما استقلال'),
 	dict(name='سینما پردیس'),
+]
+
+advertisements = [
+	dict(image='images/advertisements/ad01.jpg', url='http://www.google.com', order=1),
+	dict(image='images/advertisements/ad02.jpg', url='http://www.yahoo.com', order=2),
+]
+
+slides = [
+	dict(image='images/slider/01.jpg', url='http://www.google.com', order=1),
+	dict(image='images/slider/02.jpg', url='http://www.yahoo.com', order=2),
+	dict(image='images/slider/03.jpg', url='http://www.python.org', order=3),
 ]
 
 
@@ -187,6 +199,7 @@ class Command(BaseCommand):
    		_directors = [ Director.objects.create(person=p) for p in _people[: len(people)//2 ] ]
    		print("Populated directors table")
 
+   		# create some produsers
    		_producers = [ Producer.objects.create(person=p) for p in _people[: len(people)//2 ] ]
    		print("Populated producers table")
 
@@ -194,6 +207,7 @@ class Command(BaseCommand):
    		_writers = [ Writer.objects.create(person=p) for p in _people[len(people)//2:] ]
    		print("Populated writers table")
 
+   		# create some films
    		for film in films:
    			director = random.choice(_directors)
    			producer = random.choice(_producers)
@@ -206,7 +220,7 @@ class Command(BaseCommand):
    				writer=writer, genre=genre, country=country, language=language)
    		print("Populated films table")
 
-
+   		# create some theaters
    		for theater in theaters:
    			director = random.choice(_directors)
    			producer = random.choice(_producers)
@@ -217,14 +231,20 @@ class Command(BaseCommand):
    			Theater.objects.create(**theater, director=director, language=language, producer=producer, writer=writer, genre=genre)
    		print("Populated theaters table")
 
-
+   		# create some songs
    		_songs = [Song.objects.create(**s) for s in songs]
    		print("Populated songs table")
 
-
+   		# create some concerts
    		_concerts = [Concert.objects.create(**c) for c in concerts]
    		# for concert in concerts:
    		# 	song = random.choice(_songs)
    		# 	title = 'کنسرت '.format(song.singer)
    		# 	Concert.objects.create(**concert)
    		print("Populated concerts table")
+
+   		# create some advertisements
+   		_ads = [Advertisement.objects.create(**ad) for ad in advertisements]
+
+   		# create some slides
+   		_slides = [Slide.objects.create(**s) for s in slides]
