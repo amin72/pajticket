@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'tinymce',
     'accounts',
     'tickets',
     'news',
@@ -122,10 +123,20 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "assets"),
 ]
 
+
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 
 HAYSTACK_CONNECTIONS = {
 'default': {
         'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
     },
+}
+
+
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "spellchecker,paste,searchreplace",
+    'theme': "advanced",
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
 }

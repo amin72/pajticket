@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
 
+from tinymce.models import HTMLField
+
 
 ### Helpers ###
 
@@ -142,7 +144,7 @@ class Film(models.Model):
 	country = models.ForeignKey(Country, verbose_name='محصول',
 		on_delete=models.CASCADE)
 	actors = models.ManyToManyField(Actor, verbose_name='ستارگان')
-	description = models.TextField(verbose_name='خلاصه داستان')
+	description = HTMLField(verbose_name='خلاصه داستان')
 	genre = models.ForeignKey(Genre, verbose_name='ژانر')
 	writer = models.ForeignKey(Writer, verbose_name='نویسنده')
 	cover = models.ImageField(upload_to='images/films/', verbose_name='کاور', default='')
@@ -171,7 +173,7 @@ class Theater(models.Model):
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
 	language = models.ForeignKey(Language, verbose_name='زبان')
 	actors = models.ManyToManyField(Actor, verbose_name='ستارگان')
-	description = models.TextField(verbose_name='خلاصه داستان')
+	description = HTMLField(verbose_name='خلاصه داستان')
 	genre = models.ForeignKey(Genre, verbose_name='ژانر')
 	writer = models.ForeignKey(Writer, verbose_name='نویسنده')
 	cover = models.ImageField(upload_to='images/theaters/',
@@ -208,7 +210,7 @@ class Concert(models.Model):
 	songs = models.ManyToManyField(Song, verbose_name='ترانه ها')
 	running_time = models.DateTimeField(verbose_name='زمان کنسرت')
 	length = models.PositiveIntegerField(verbose_name='مدت اجرا کنسرت')
-	description = models.TextField(verbose_name='توضیحات')
+	description = HTMLField(verbose_name='توضیحات')
 	place = models.ForeignKey(Place, verbose_name='مکان')
 	cover = models.ImageField(upload_to='images/concerts/',
 		verbose_name='کاور')
@@ -231,7 +233,7 @@ class ConcertTicket(Ticket):
 class ContactUs(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE,
 		verbose_name='کاربر')
-	text = models.TextField(verbose_name='متن')
+	text = HTMLField(verbose_name='متن')
 	date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
 
 	def __str__(self):

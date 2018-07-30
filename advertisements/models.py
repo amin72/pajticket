@@ -1,8 +1,10 @@
 from django.db import models
 
+from tinymce.models import HTMLField
+
 
 class Advertisement(models.Model):
-	text = models.TextField(blank=True, default='', verbose_name='متن')
+	text = HTMLField(blank=True, default='', verbose_name='متن')
 	url = models.URLField(verbose_name='لینک')
 	image = models.ImageField(upload_to='images/advertisements',
 		verbose_name='تصویر')
