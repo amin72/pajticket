@@ -2,7 +2,6 @@ from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views import generic
 
-from reportlab.pdfgen import canvas
 from django.http import HttpResponse
 
 from braces import views
