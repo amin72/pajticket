@@ -21,22 +21,23 @@ CONCERT_PRICE = 26000
 
 
 def slide_active(slides):
-	# check if any of the slides is active		
-	active = False
-	for slide in slides:
-		# if found active slide, make other slides inactive
-		if active:
-			slide.active = False
-			slide.save()
-		# if found any active slide, save the state
-		if slide.active:
-			active = True
+	# check if any of the slides is active
+	if slides.count() > 0:		
+		active = False
+		for slide in slides:
+			# if found active slide, make other slides inactive
+			if active:
+				slide.active = False
+				slide.save()
+			# if found any active slide, save the state
+			if slide.active:
+				active = True
 
-	# if no slide is active, make the first one active
-	if not active:
-		slide = slides[0]
-		slide.active = True
-		slide.save()
+		# if no slide is active, make the first one active
+		if not active:
+			slide = slides[0]
+			slide.active = True
+			slide.save()
 
 
 class HomePageView(generic.TemplateView):
