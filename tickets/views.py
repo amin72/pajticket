@@ -20,6 +20,25 @@ THEATER_PRICE = 32000
 CONCERT_PRICE = 26000
 
 
+def slide_active(slides):
+	# check if any of the slides is active		
+	active = False
+	for slide in slides:
+		# if found active slide, make other slides inactive
+		if active:
+			slide.active = False
+			slide.save()
+		# if found any active slide, save the state
+		if slide.active:
+			active = True
+
+	# if no slide is active, make the first one active
+	if not active:
+		slide = slides[0]
+		slide.active = True
+		slide.save()
+
+
 class HomePageView(generic.TemplateView):
 	template_name = 'tickets/home.html'
 
@@ -30,25 +49,9 @@ class HomePageView(generic.TemplateView):
 		context['concerts'] = ticket_models.Concert.objects.all()[:8]
 		context['news'] = news_models.News.objects.all()[:8]
 		context['advertisements'] = ad_models.Advertisement.objects.all()[:2]
+
 		slides = slider_models.Slide.objects.all()[:3]
-
-		# check if any of the slides is active		
-		active = False
-		for slide in slides:
-			# if found active slide, make other slides inactive
-			if active:
-				slide.active = False
-				slide.save()
-			# if found any active slide, save the state
-			if slide.active:
-				active = True
-
-		# if no slide is active, make the first one active
-		if not active:
-			slide = slides[0]
-			slide.active = True
-			slide.save()
-
+		slide_active(slides)
 		context['slides'] = slides
 		return context
 
@@ -56,13 +59,28 @@ class HomePageView(generic.TemplateView):
 class FilmListView(generic.ListView):
 	model = ticket_models.Film
 
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['advertisements'] = ad_models.Advertisement.objects.all()[:2]
+		return context
+
 
 class FilmDetailView(generic.DetailView):
 	model = ticket_models.Film
 
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['advertisements'] = ad_models.Advertisement.objects.all()[:2]
+		return context
+
 
 class TheaterListView(generic.ListView):
 	model = ticket_models.Theater
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['advertisements'] = ad_models.Advertisement.objects.all()[:2]
+		return context
 
 
 class TheaterDetailView(generic.DetailView):

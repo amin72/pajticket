@@ -233,7 +233,7 @@ class ConcertTicket(Ticket):
 class ContactUs(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE,
 		verbose_name='کاربر')
-	text = HTMLField(verbose_name='متن')
+	text = models.TextField(verbose_name='متن')
 	date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
 
 	def __str__(self):
