@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load jformat %}
 
 {% block title %}{{ block.super }} | نتایج جستجو {{ object.title }}{% endblock %}
 
@@ -33,8 +34,8 @@
                                         </a>
                                     </td>
                                     <td>{{ film.director }}</td>
-                                    <td>{{ film.release_date }}</td>
-                                    <td>{{ film.running_time }}</td>
+                                    <td><span dir="ltr">{{ film.release_date|jformat:"%Y" }}</span></td>
+                                    <td><span dir="ltr">{{ film.running_time|jformat:"%Y-%m-%d %H:%M:%S" }}</span></td>
                                 </tr>
                             {% endfor %}
                           </tbody>
@@ -85,7 +86,6 @@
                                 <th>#</th>
                                 <th>کنسرت</th>
                                 <th>خواننده</th>
-                                <!-- <th>سال ساخت</th> -->
                                 <th>اجرا</th>
                             </tr>
                         </thead>

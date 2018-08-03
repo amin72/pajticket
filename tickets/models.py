@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 from tinymce.models import HTMLField
+from django_jalali.db import models as jmodels
 
 
 ### Helpers ###
@@ -63,7 +64,7 @@ class People(models.Model):
 	
 	first_name = models.CharField(max_length=255, verbose_name='نام')
 	last_name = models.CharField(max_length=255, verbose_name='نام خانوادگی')
-	birth_day = models.DateTimeField(verbose_name='تاریخ تولد', blank=True,
+	birth_day = jmodels.jDateTimeField(verbose_name='تاریخ تولد', blank=True,
 		default='')
 	gender = models.CharField(max_length=255, verbose_name='جنسیت',
 		choices=GENDERS)
@@ -133,11 +134,13 @@ class Country(models.Model):
 
 class Film(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
-	director = models.ForeignKey(Director, verbose_name='کارگردان')
-	producer = models.ForeignKey(Producer, verbose_name='تهیه کننده')
-	release_date = models.DateTimeField(auto_now_add=True,
+	director = models.ForeignKey(Director, verbose_name='کارگردان',
+		on_delete=models.CASCADE)
+	producer = models.ForeignKey(Producer, verbose_name='تهیه کننده',
+		on_delete=models.CASCADE)
+	release_date = jmodels.jDateField(auto_now_add=True,
 		verbose_name='زمان انتشار')
-	running_time = models.DateTimeField(verbose_name='زمان اکران فیلم')
+	running_time = jmodels.jDateTimeField(verbose_name='زمان اکران فیلم')
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
 	language = models.ForeignKey(Language, verbose_name='زبان',
 		on_delete=models.CASCADE)
@@ -145,8 +148,10 @@ class Film(models.Model):
 		on_delete=models.CASCADE)
 	actors = models.ManyToManyField(Actor, verbose_name='ستارگان')
 	description = HTMLField(verbose_name='خلاصه داستان')
-	genre = models.ForeignKey(Genre, verbose_name='ژانر')
-	writer = models.ForeignKey(Writer, verbose_name='نویسنده')
+	genre = models.ForeignKey(Genre, verbose_name='ژانر',
+		on_delete=models.CASCADE)
+	writer = models.ForeignKey(Writer, verbose_name='نویسنده',
+		on_delete=models.CASCADE)
 	cover = models.ImageField(upload_to='images/films/', verbose_name='کاور', default='')
 
 	def __str__(self):
@@ -167,15 +172,20 @@ class FilmTicket(Ticket):
 
 class Theater(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
-	director = models.ForeignKey(Director, verbose_name='کارگردان')
-	producer = models.ForeignKey(Producer, verbose_name='تهیه کننده')
-	running_time = models.DateTimeField(verbose_name='زمان نمایش فیلم')
+	director = models.ForeignKey(Director, verbose_name='کارگردان',
+		on_delete=models.CASCADE)
+	producer = models.ForeignKey(Producer, verbose_name='تهیه کننده',
+		on_delete=models.CASCADE)
+	running_time = jmodels.jDateTimeField(verbose_name='زمان نمایش فیلم')
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
-	language = models.ForeignKey(Language, verbose_name='زبان')
+	language = models.ForeignKey(Language, verbose_name='زبان',
+		on_delete=models.CASCADE)
 	actors = models.ManyToManyField(Actor, verbose_name='ستارگان')
 	description = HTMLField(verbose_name='خلاصه داستان')
-	genre = models.ForeignKey(Genre, verbose_name='ژانر')
-	writer = models.ForeignKey(Writer, verbose_name='نویسنده')
+	genre = models.ForeignKey(Genre, verbose_name='ژانر',
+		on_delete=models.CASCADE)
+	writer = models.ForeignKey(Writer, verbose_name='نویسنده',
+		on_delete=models.CASCADE)
 	cover = models.ImageField(upload_to='images/theaters/',
 		verbose_name='کاور', default='')
 
@@ -196,7 +206,8 @@ class TheaterTicket(Ticket):
 
 class Song(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
-	singer = models.ForeignKey(People, verbose_name='خواننده')
+	singer = models.ForeignKey(People, verbose_name='خواننده',
+		on_delete=models.CASCADE)
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
 
 	def __str__(self):
@@ -208,10 +219,11 @@ class Concert(models.Model):
 	artist = models.ForeignKey(People, on_delete=models.CASCADE,
 		verbose_name='خواننده')
 	songs = models.ManyToManyField(Song, verbose_name='ترانه ها')
-	running_time = models.DateTimeField(verbose_name='زمان کنسرت')
+	running_time = jmodels.jDateTimeField(verbose_name='زمان کنسرت')
 	length = models.PositiveIntegerField(verbose_name='مدت اجرا کنسرت')
 	description = HTMLField(verbose_name='توضیحات')
-	place = models.ForeignKey(Place, verbose_name='مکان')
+	place = models.ForeignKey(Place, verbose_name='مکان',
+		on_delete=models.CASCADE)
 	cover = models.ImageField(upload_to='images/concerts/',
 		verbose_name='کاور')
 
@@ -234,7 +246,7 @@ class ContactUs(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE,
 		verbose_name='کاربر')
 	text = models.TextField(verbose_name='متن')
-	date = models.DateTimeField(auto_now_add=True, verbose_name='تاریخ')
+	date = jmodels.jDateTimeField(auto_now_add=True, verbose_name='تاریخ')
 
 	def __str__(self):
 		return '{} - {}'.format(self.user, self.date)

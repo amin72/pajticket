@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load jformat %}
 
 {% block title %}{{ block.super }} | فیلم ها{% endblock %}
 
@@ -14,7 +15,9 @@
             </div>
             <div class="panel-body">
                 <div class="well news-text">{{ object.text }}</div>
-                <span class="label label-default news-date">{{ object.date }}</span>
+                <span dir="ltr" class="label label-default news-date">
+                    {{ news.date|jformat:"%Y-%m-%d %H:%M:%S" }}
+                </span>
             </div>
         </div>
         <a href="{% url 'news:list' %}" class="btn btn-primary">اخبار سایت باج تیکت</a>
