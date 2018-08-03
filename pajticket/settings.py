@@ -30,7 +30,6 @@ INSTALLED_APPS = [
     'accounts',
     'tickets',
     'news',
-    'haystack',
     'advertisements',
     'slider',
 ]
@@ -125,13 +124,6 @@ STATICFILES_DIRS = [
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
-
-HAYSTACK_CONNECTIONS = {
-'default': {
-        'ENGINE': 'haystack.backends.simple_backend.SimpleEngine',
-    },
-}
 
 
 TINYMCE_DEFAULT_CONFIG = {

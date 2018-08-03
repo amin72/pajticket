@@ -167,8 +167,34 @@ html, body {
     color: #f39c12;
 }
 
-/* end */
+/* end Footer */
+
 
 .footer-text {
 	font-size: 17px;
 }
+
+
+/*
+	Font
+*/
+
+
+@font-face {
+    font-family:'BYekan';
+    src:url('../fonts/BYekan.eot');
+    src:local('bYekan'),
+        local('b Yekan'),
+        url('../fonts/BYekan.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/BYekan.woff') format('woff'),
+        url('../fonts/BYekan.ttf') format('truetype'),
+        url('../fonts/BYekan.svg#BYekan') format('svg');
+    font-style:normal;
+    font-weight:normal;
+}
+
+body {
+    font-family:BYekan, Tahoma, Geneva, sans-serif;
+}
+
+/* END Font */

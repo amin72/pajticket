@@ -3,6 +3,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -16,11 +18,11 @@ urlpatterns = [
     # news
     url(r'^news/', include('news.urls', namespace='news')),
 
-    # search
-    url(r'^search/', include('haystack.urls')),
-
     # tinymce
     url(r'^tinymce/', include('tinymce.urls')),
+
+    # search
+    url(r'^search/', views.search, name='search'),
 ]
 
 if settings.DEBUG:
