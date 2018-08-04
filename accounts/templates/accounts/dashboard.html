@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load crispy_forms_tags %}
+{% load jformat %}
 
 {% block title %}داشبورد | {{ block.super }}{% endblock %}
 
@@ -60,7 +61,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ ticket.title }}</strong>
 
-                                    <span class="label pull-left big-label{% if ticket.film.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.film.running_time }}</span>
+                                    <span dir="ltr" class="label pull-left big-label{% if ticket.film.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.film.running_time|jformat:"%Y-%m-%d %H:%M:%S" }}</span>
 
                                     {% if ticket.film.running_time < now %}
                                         <a class="pull-left big-label label label-danger btn-space" href="{% url 'tickets:remove_film_ticket' pk=ticket.pk %}">حذف</a>
@@ -80,7 +81,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ ticket.title }}</strong>
 
-                                    <span class="label pull-left big-label{% if ticket.theater.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.theater.running_time }}</span>
+                                    <span dir="ltr" class="label pull-left big-label{% if ticket.theater.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.theater.running_time|jformat:"%Y-%m-%d %H:%M:%S" }}</span>
 
                                     {% if ticket.theater.running_time < now %}
                                         <a class="pull-left big-label label label-danger btn-space" href="{% url 'tickets:remove_theater_ticket' pk=ticket.pk %}">حذف</a>
@@ -99,7 +100,7 @@
                                 <li class="list-group-item">
                                     <strong>{{ ticket.title }}</strong>
 
-                                    <span class="label pull-left big-label{% if ticket.concert.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.concert.running_time }}</span>
+                                    <span dir="ltr" class="label pull-left big-label{% if ticket.concert.running_time > now %} label-primary{% else %} label-default {% endif %}">{{ ticket.concert.running_time|jformat:"%Y-%m-%d %H:%M:%S" }}</span>
 
                                     {% if ticket.concert.running_time < now %}
                                         <a class="pull-left big-label label label-danger btn-space" href="{% url 'tickets:remove_concert_ticket' pk=ticket.pk %}">حذف</a>

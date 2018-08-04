@@ -25,7 +25,7 @@
         </div>
 	</div>
 	<div class="col-md-5">
-		<img class="img-responsive img-thumbnail" src="{% static 'img/1.jpg' %}" alt="{{ object.title }}">
+		<img class="img-responsive img-thumbnail" src="{{ object.cover.url }}" alt="{{ object.title }}" style="min-height: 600px; height: 600px; min-width: 500px; width: 500px;">
 		<h2>
 			<span class="label label-danger">{{ object.title }}</span>
 			<span class="label label-default">{{ object.director }}</span>

@@ -138,8 +138,8 @@ class Film(models.Model):
 		on_delete=models.CASCADE)
 	producer = models.ForeignKey(Producer, verbose_name='تهیه کننده',
 		on_delete=models.CASCADE)
-	release_date = jmodels.jDateField(verbose_name='زمان انتشار')
-	running_time = jmodels.jDateTimeField(verbose_name='زمان اکران فیلم')
+	release_date = jmodels.jDateField(verbose_name='سال ساخت')
+	running_time = jmodels.jDateTimeField(verbose_name='زمان اکران')
 	length = models.PositiveIntegerField(verbose_name='مدت زمان')
 	language = models.ForeignKey(Language, verbose_name='زبان',
 		on_delete=models.CASCADE)

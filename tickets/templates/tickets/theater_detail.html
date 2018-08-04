@@ -19,7 +19,7 @@
 				</h3>
 				</div>
 				<div class="col-2">
-					<a class="btn btn-success" href="{% url 'tickets:buy_film_ticket' pk=object.pk %}" style="margin-right: 16px;">خرید بلیط</a>
+					<a class="btn btn-success" href="{% url 'tickets:buy_theater_ticket' pk=object.pk %}" style="margin-right: 16px;">خرید بلیط</a>
 				</div>
 			</div>
 			<hr>
@@ -51,7 +51,9 @@
 					{% endif %}
 					<li class="list-group-item">
 						<h4><strong>درباره تئاتر</strong></h4>
-						<div class="well">{{ object.description }}</div>
+						<div class="well" style="text-align: justify;">
+							{{ object.description|safe }}
+						</div>
 					</li>
 				</ul>
 			</div>
