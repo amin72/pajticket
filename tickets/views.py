@@ -111,6 +111,13 @@ class FilmTicketBuyView(views.LoginRequiredMixin,
 			ticket.title = film.title
 			ticket.price = FILM_PRICE
 			ticket.film = film
+			try:
+				chair_number = \
+					ticket_models.FilmTicket.objects.last().chair_number
+			except AttributeError:
+				chair_number = 0
+			
+			ticket.chair_number = chair_number + 1
 			ticket.save()
 			request.session['ticket_type'] = 'film'
 			request.session['ticket_pk'] = str(ticket.pk)
@@ -159,6 +166,14 @@ class TheaterTicketBuyView(views.LoginRequiredMixin,
 			ticket.title = theater.title
 			ticket.price = THEATER_PRICE
 			ticket.theater = theater
+
+			try:
+				chair_number = \
+					ticket_models.TheaterTicket.objects.last().chair_number
+			except AttributeError:
+				chair_number = 0
+			
+			ticket.chair_number = chair_number + 1
 			ticket.save()
 			request.session['ticket_type'] = 'theater'
 			request.session['ticket_pk'] = str(ticket.pk)
@@ -209,11 +224,18 @@ class ConcertTicketBuyView(views.LoginRequiredMixin,
 			ticket.price = CONCERT_PRICE
 			ticket.concert = concert
 			ticket.place = concert.place
+
+			try:
+				chair_number = \
+					ticket_models.ConcertTicket.objects.last().chair_number
+			except AttributeError:
+				chair_number = 0
+
+			ticket.chair_number = chair_number + 1
 			ticket.save()
 			request.session['ticket_type'] = 'concert'
 			request.session['ticket_pk'] = str(ticket.pk)
 			return redirect(reverse_lazy('tickets:payment_success'))
-		print(form)
 		return self.get(request, *args, **kwargs)
 
 	def get_context_data(self, *args, **kwargs):

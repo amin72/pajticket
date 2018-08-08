@@ -42,6 +42,7 @@ class Ticket(models.Model):
 	title = models.CharField(max_length=255, verbose_name='عنوان')
 	price = models.FloatField(verbose_name='مبلغ')
 	row = models.PositiveIntegerField(choices=ROWS, verbose_name='ردیف')
+	chair_number = models.PositiveIntegerField(verbose_name='شماره صندلی')
 	place = models.ForeignKey(Place, on_delete=models.CASCADE,
 		verbose_name='مکان')
 
