@@ -6,24 +6,25 @@
 {% block content %}
 
 <div class="row">
-	<div class="col-md-8 col-md-offset-2 col-sm-12">
-			<div class="col-md-6">
-				<img class="img-responsive img-thumbnail cover-detail" src="{{ object.cover.url }}" alt="{{ object.title }}">
-			</div>
-			<div class="col-md-6">
-				<div class="col-md-10">
-				<h3>
-					<span class="label label-danger">{{ object.title }}</span>
-					<span class="label label-default">{{ object.director }}</span>
-					<span class="label label-primary">{{ object.release_date.year }}</span>
-				</h3>
-				</div>
-				<div class="col-2">
-					<a class="btn btn-success" href="{% url 'tickets:buy_concert_ticket' pk=object.pk %}" style="margin-right: 16px;">خرید بلیط</a>
-				</div>
-			</div>
-			<hr>
-			<div class="col-md-10">
+    <div class="col-md-8 col-md-offset-2 col-sm-12">
+        <div class="row">
+            <div class="col-md-6">
+                <img class="img-responsive" src="{{ object.cover.url }}" alt="">
+            </div>
+            <div class="col-md-5">
+                <div class="row">
+                    <div class="col-md-12" style="margin-top: 12px;">
+                        <span class="label label-primary label-big">{{ object.title }}</span>
+                    </div>
+                    <div class="col-md-12">
+                        <a class="btn btn-success" href="{% url 'tickets:buy_theater_ticket' pk=object.pk %}" style="margin-top: 20px;">خرید بلیط</a>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </div>
+        <div class="row">
+        	<div class="col-md-12">
 				<ul class="list-group">
 					<li class="list-group-item">
 						<strong>مدت:‌ {{ object.length }} دقیقه</strong>
@@ -31,21 +32,21 @@
 					<li class="list-group-item">
 						<strong>تاریخ اجرا:‌ <span dir="rtl">{{ object.running_time.date }}</span></strong>
 					</li>
-					<li class="list-group-item">
-						<strong>مکان:‌ {{ object.place.name }}</strong>
-					</li>
-					{% if object.songs.count > 0 %}
-						<li class="list-group-item">
-							<h4><strong>ترا نه ها</strong></h4>
-							{{ object.songs.all|join:' - ' }}
-						</li>
-					{% endif %}
-					<li class="list-group-item">
-						<h4><strong>توضیحات</strong></h4>
-						<div class="well" style="text-align: justify;">
-							{{ object.description|safe }}
-						</div>
-					</li>
+					                    <li class="list-group-item">
+                        <strong>مکان:‌ {{ object.place.name }}</strong>
+                    </li>
+                    {% if object.songs.count > 0 %}
+                        <li class="list-group-item">
+                            <h4><strong>ترا نه ها</strong></h4>
+                            {{ object.songs.all|join:' - ' }}
+                        </li>
+                    {% endif %}
+                    <li class="list-group-item">
+                        <h4><strong>توضیحات</strong></h4>
+                        <div class="well" style="text-align: justify;">
+                            {{ object.description|safe }}
+                        </div>
+                    </li>
 				</ul>
 			</div>
 		</div>
