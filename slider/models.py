@@ -16,9 +16,11 @@ class Slide(models.Model):
 
 	def __str__(self):
 		if self.title:
-			return self.title
-		elif self.url:
-			return self.url
+			text = self.title
+		else:
+			text = self.url
+
+		return '{}, شماره: {}'.format(text, self.order)
 
 	class Meta:
 		ordering = ('order',)

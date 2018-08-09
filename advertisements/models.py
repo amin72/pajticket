@@ -14,9 +14,9 @@ class Advertisement(models.Model):
 
 	def __str__(self):
 		if self.text:
-			return self.text
+			text = self.text
 		else:
-			return self.url
+			text = self.url
 
 	class Meta:
 		ordering = ('order',)

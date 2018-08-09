@@ -23,25 +23,15 @@
                 </a>
                 <div class="carousel-caption">
                     {% if slide.title %}
-                        <h3>{{ slide.title }}</h3>
+                        <h3>{{ slide.title|safe }}</h3>
                     {% endif %}
                     {% if slide.description %}
-                        <p>{{ slide.description }}</p>
+                        <p>{{ slide.description|safe }}</p>
                     {% endif %}
                 </div>
             </div>
         {% endfor %}
     </div>
-
-    <!-- Left and right controls -->
-<!--     <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right"></span>
-        <span class="sr-only">Next</span>
-    </a> -->
 </div>
 {% endif %}
 
@@ -60,7 +50,7 @@
         </div>
 
         <div class="row">
-            {% for film in films %}
+            {% for film in films reversed %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:film_detail' pk=film.pk %}">
@@ -88,7 +78,7 @@
         </div>
 
         <div class="row">
-            {% for theater in theaters %}
+            {% for theater in theaters reversed %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:theater_detail' pk=theater.pk %}">
@@ -116,7 +106,7 @@
         </div>
 
         <div class="row">
-            {% for concert in concerts %}
+            {% for concert in concerts reversed %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:concert_detail' pk=concert.pk %}">
@@ -141,7 +131,7 @@
                 <div class="text-center">
                     <h3 class="text-muted"><strong>آخرین اخبار</strong></h3>
                 </div>
-                {% for n in news %}
+                {% for n in news reversed %}
                     <div class="space">
                         <img src="{% static 'img/news-icon.jpg' %}">
                         <a href="{% url 'news:detail' pk=n.pk %}">

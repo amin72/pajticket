@@ -286,19 +286,15 @@ class PaymentSuccess(generic.TemplateView, views.LoginRequiredMixin):
 		return context
 
 
-class ContactUsView(views.LoginRequiredMixin,
-	views.FormValidMessageMixin,
-	generic.CreateView):
-
+class ContactUsView(views.FormValidMessageMixin, generic.CreateView):
 	template_name = 'tickets/contact_us.html'
 	form_class = forms.ContactUsForm
 	form_valid_message = 'پیام شما با موفقیت ارسال شد'
 	success_url = reverse_lazy('tickets:contact_us')
 
 	def form_valid(self, form):
-		obj = form.save(commit=False)
-		obj.user = self.request.user
-		obj.save()
+		obj = form.save()
+		print(obj)
 		return super().form_valid(form)
 
 

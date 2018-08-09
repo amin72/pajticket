@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.core.validators import RegexValidator
+from django.utils import timezone
 
 from tinymce.models import HTMLField
 from django_jalali.db import models as jmodels
@@ -243,13 +245,21 @@ class ConcertTicket(Ticket):
 
 
 class ContactUs(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE,
-		verbose_name='کاربر')
+	email = models.EmailField(verbose_name='ایمیل')
+
+	phone_regex = RegexValidator(regex=r'^09\d{9}$',
+    	message="شماره تماس باید به این فرمت وارد شود: 09123456789")
+	phone_number = models.CharField(validators=[phone_regex], max_length=11,
+    	blank=True, verbose_name='شماره تماس') # validators should be a list
+
+	bio = models.TextField(verbose_name='بیوگرافی')
 	text = models.TextField(verbose_name='متن')
-	date = jmodels.jDateTimeField(auto_now_add=True, verbose_name='تاریخ')
+	date = jmodels.jDateTimeField(default=timezone.now(), verbose_name='تاریخ')
 
 	def __str__(self):
-		return '{} - {}'.format(self.user, self.date)
+		print(self.date.date())
+		return '{} - {}'.format(self.email,
+			self.date.strftime("%y-%m-%d, %H:%M:%S"))
 
 	class Meta:
 		verbose_name_plural = 'Contact Us'
