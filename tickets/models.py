@@ -162,6 +162,9 @@ class Film(models.Model):
 	def get_absolute_url(self):
 		return reverse('tickets:film_detail', kwargs={'pk': self.pk})
 
+	class Meta:
+		ordering = ('-id',)
+
 
 class FilmTicket(Ticket):
 	film = models.ForeignKey(Film, on_delete=models.CASCADE,
@@ -196,6 +199,9 @@ class Theater(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('tickets:theater_detail', kwargs={'pk': self.pk})
+
+	class Meta:
+		ordering = ('-id',)
 
 
 class TheaterTicket(Ticket):
@@ -234,6 +240,9 @@ class Concert(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('tickets:concert_detail', kwargs={'pk': self.pk})
+
+	class Meta:
+		ordering = ('-id',)
 
 
 class ConcertTicket(Ticket):

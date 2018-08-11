@@ -50,7 +50,7 @@
         </div>
 
         <div class="row">
-            {% for film in films reversed %}
+            {% for film in films %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:film_detail' pk=film.pk %}">
@@ -78,7 +78,7 @@
         </div>
 
         <div class="row">
-            {% for theater in theaters reversed %}
+            {% for theater in theaters %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:theater_detail' pk=theater.pk %}">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="row">
-            {% for concert in concerts reversed %}
+            {% for concert in concerts %}
                 <div class="col-md-3 col-sm-4 col-xs-6">
                     <div class="space">
                         <a href="{% url 'tickets:concert_detail' pk=concert.pk %}">
@@ -131,7 +131,7 @@
                 <div class="text-center">
                     <h3 class="text-muted"><strong>آخرین اخبار</strong></h3>
                 </div>
-                {% for n in news reversed %}
+                {% for n in news %}
                     <div class="space">
                         <img src="{% static 'img/news-icon.jpg' %}">
                         <a href="{% url 'news:detail' pk=n.pk %}">

@@ -7,7 +7,7 @@
 
 <div class="row">
     <div class="col-md-9">
-        {% for film in object_list reversed %}
+        {% for film in object_list %}
             <div class="col-md-3 col-sm-6">
                 <div class="space">
                     <a href="{% url 'tickets:film_detail' pk=film.pk %}">
