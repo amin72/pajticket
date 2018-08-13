@@ -254,6 +254,7 @@ class ConcertTicket(Ticket):
 
 
 class ContactUs(models.Model):
+	name = models.CharField(max_length=255, verbose_name='نام و نام خانوادگی')
 	email = models.EmailField(verbose_name='ایمیل')
 
 	phone_regex = RegexValidator(regex=r'^09\d{9}$',
@@ -261,7 +262,6 @@ class ContactUs(models.Model):
 	phone_number = models.CharField(validators=[phone_regex], max_length=11,
     	blank=True, verbose_name='شماره تماس') # validators should be a list
 
-	bio = models.TextField(verbose_name='بیوگرافی')
 	text = models.TextField(verbose_name='متن')
 	date = jmodels.jDateTimeField(default=timezone.now(), verbose_name='تاریخ')
 

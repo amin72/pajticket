@@ -61,9 +61,9 @@ class ContactUsForm(forms.ModelForm):
 		super().__init__(*args, **kwargs)
 		self.helper = FormHelper()
 		self.helper.layout = Layout(
+			'name',
 			'email',
 			'phone_number',
-			'bio',
 			'text',
 			ButtonHolder(
 				Submit('submit', 'ارسال', css_class='btn-primary')
@@ -72,4 +72,4 @@ class ContactUsForm(forms.ModelForm):
 
 	class Meta:
 		model = models.ContactUs
-		fields = ('email', 'phone_number', 'bio', 'text')
+		fields = ('name', 'email', 'phone_number', 'text')
