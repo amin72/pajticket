@@ -26,7 +26,8 @@ def calculate_price_by_row(price, row):
 ### Models ###
 
 class Place(models.Model):
-	name = models.CharField(max_length=255, verbose_name='مکان')
+	name = models.CharField(max_length=255, verbose_name='نام')
+	address = models.CharField(max_length=255, verbose_name='آدرس')
 
 	def __str__(self):
 		return self.name

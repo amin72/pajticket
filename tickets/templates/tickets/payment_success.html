@@ -12,13 +12,16 @@
 				پرداخت با موفقیت انجام شد. با تشکر از خرید شما
 			</p>
 			<p class="space">
-				{{ ticket }}
+				<strong>{{ ticket.title }}</strong> - {{ ticket.place.name }}
 				<ul class="list-group">
 					<li class="list-group-item">
 						نام: <strong>{{ ticket.title }}</strong>
 					</li>
 					<li class="list-group-item">
-						مکان: <strong>{{ ticket.place }}</strong>
+						سینما: <strong>{{ ticket.place.name }}</strong>
+					</li>
+					<li class="list-group-item">
+						آدرس: <strong>{{ ticket.place.address }}</strong>
 					</li>
 					<li class="list-group-item">
 						ردیف: <strong>{{ ticket.row }}</strong>

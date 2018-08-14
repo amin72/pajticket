@@ -111,9 +111,11 @@ class FilmTicketBuyView(views.LoginRequiredMixin,
 			ticket.title = film.title
 			ticket.price = FILM_PRICE
 			ticket.film = film
+
 			try:
 				chair_number = \
-					ticket_models.FilmTicket.objects.last().chair_number
+					ticket_models.FilmTicket.objects.filter(
+						film=film, row=ticket.row).last().chair_number
 			except AttributeError:
 				chair_number = 0
 			

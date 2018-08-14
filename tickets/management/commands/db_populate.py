@@ -116,8 +116,8 @@ songs = [
 ]
 
 concerts = [
-	dict(title='کنسرت رضا صادقی', cover='images/concerts/01.jpg', artist=reza_sadeghi, place=Place.objects.create(name='خیابان آزادی'), length=60, running_time=timezone.datetime(2018, 8, 10), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
-	dict(title='کنسرت علی لهراسبی', cover='images/concerts/02.jpg', artist=ali_lohrasbi, place=Place.objects.create(name='پارک ولیعصر'), length=100, running_time=timezone.datetime(2018, 9, 25), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+	dict(title='کنسرت رضا صادقی', cover='images/concerts/01.jpg', artist=reza_sadeghi, place=Place.objects.create(name='سینما آزادی', address='تهران - خیابان آزادی'), length=60, running_time=timezone.datetime(2018, 8, 10), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
+	dict(title='کنسرت علی لهراسبی', cover='images/concerts/02.jpg', artist=ali_lohrasbi, place=Place.objects.create(name='پارک ولیعصر', address='تهران - خیابان ولیعصر'), length=100, running_time=timezone.datetime(2018, 9, 25), description='Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'),
 ]
 
 news = [
@@ -131,17 +131,17 @@ news = [
 ]
 
 places = [
-	dict(name='سینما فرهنگ'),
-	dict(name='سینما مرکزی'),
-	dict(name='سینما شکوفه'),
-	dict(name='سینما آفریقا'),
-	dict(name='سینما بهمن'),
-	dict(name='سینما قدس'),
-	dict(name='سینما ایران'),
-	dict(name='سینما ملت'),
-	dict(name='سینما حافظ'),
-	dict(name='سینما استقلال'),
-	dict(name='سینما پردیس'),
+	dict(name='سینما فرهنگ', address='تهران - خیابان فرهنگ'),
+	dict(name='سینما مرکزی', address='تهران - خیابان مرکزی'),
+	dict(name='سینما شکوفه', address='تهران - خیابان شکوفه'),
+	dict(name='سینما آفریقا', address='تهران - خیابان آفریقا'),
+	dict(name='سینما بهمن', address='تهران - خیابان بهمن'),
+	dict(name='سینما قدس', address='تهران - خیابان قدس'),
+	dict(name='سینما ایران', address='تهران - خیابان ایران'),
+	dict(name='سینما ملت', address='تهران - خیابان ملت'),
+	dict(name='سینما حافظ', address='تهران - خیابان حافظ'),
+	dict(name='سینما استقلال', address='تهران - خیابان استقلال'),
+	dict(name='سینما پردیس', address='تهران - خیابان پردیس'),
 ]
 
 advertisements = [
