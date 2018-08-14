@@ -17,6 +17,7 @@ class Advertisement(models.Model):
 			text = self.text
 		else:
 			text = self.url
+		return '{}, شماره: {}'.format(text, self.order)
 
 	class Meta:
 		ordering = ('order',)
