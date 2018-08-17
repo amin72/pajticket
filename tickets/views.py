@@ -17,12 +17,27 @@ from .helpers import FILM_PRICE, THEATER_PRICE, CONCERT_PRICE
 
 
 # CreateView: 
+#	Create object of a given model
+
 # TemplateView: 
+#	Renders a template
+
 # ListView: 
+# 	List all items of a given model
+
 # DetailView:
+# 	Give detail of a given model
+
 # LoginRequiredMixin: 
+# 	Only logged in users can visit it
+
 # FormValidMessageMixin:
+# 	Send message to validated form, for example when user registers or
+# 	Buy a ticket
+
 # RedirectView: 
+# 	Redirect user to new url
+
 # REMEMBER pk == id (both are the same)
 
 
