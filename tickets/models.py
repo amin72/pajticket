@@ -7,23 +7,8 @@ from django.utils import timezone
 from tinymce.models import HTMLField
 from django_jalali.db import models as jmodels
 
+from .helpers import calculate_price_by_row
 
-### Helpers ###
-
-def calculate_price_by_row(price, row):
-	# add 20% to ticket price if row is 1
-	if row == 1:
-		return price + (price / 100) * 20
-	
-	# add 10% to ticket price if row is 2
-	elif row == 2:
-		return price + (price / 100) * 10
-
-	# row 3 is already set
-	return price
-
-
-### Models ###
 
 class Place(models.Model):
 	name = models.CharField(max_length=255, verbose_name='نام')
